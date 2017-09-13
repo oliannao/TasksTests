@@ -1,0 +1,59 @@
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+public class StudentGroupTest {
+	StudentGroup studentGroup = new StudentGroup(4);
+
+	@Test(dataProvider = "getStudentData", dataProviderClass = StudentGroupTestData.class)
+	public void getStudentsTest() {
+
+		Student[] studenttest = StudentGroupTestData.getStudentData();
+		studentGroup.setStudents(studenttest);
+		Student[] students = studentGroup.getStudents();
+		Assert.assertNotNull(students);
+	}
+
+	@Test(dataProvider = "getStudentData", dataProviderClass = StudentGroupTestData.class, expectedExceptions = IllegalArgumentException.class)
+	public void setStudentsTest() {
+		studentGroup.setStudents(null);
+	}
+
+	@Test(dataProvider = "getStudentData", dataProviderClass = StudentGroupTestData.class, expectedExceptions = IllegalArgumentException.class)
+	public void getStudentNullTest() {
+		studentGroup.getStudent(-1);
+	}
+
+	@Test(dataProvider = "getStudentData", dataProviderClass = StudentGroupTestData.class)
+	public void getStudentTest() {
+		Student[] studenttest = StudentGroupTestData.getStudentData();
+		studentGroup.setStudents(studenttest);
+		Student student = studentGroup.getStudent(0);
+		Student studentexp = StudentGroupTestData.getStudentData()[0];
+		Assert.assertSame(student, studentexp);
+
+	}
+
+	@Test(dataProvider = "getStudentData", dataProviderClass = StudentGroupTestData.class, expectedExceptions = IllegalArgumentException.class)
+	public void setStudentTestNullZero() {
+		studentGroup.setStudent(null, -1);
+	}
+
+	@Test(dataProvider = "getStudentData", dataProviderClass = StudentGroupTestData.class, expectedExceptions = IllegalArgumentException.class)
+	public void setStudentTestZero() {
+		Student student = StudentGroupTestData.getStudentData()[0];
+		Student[] studenttest = StudentGroupTestData.getStudentData();
+		studentGroup.setStudents(studenttest);
+		Student[] students = studentGroup.getStudents();
+		studentGroup.setStudent(student, students.length);
+	}
+	@Test(dataProvider = "getStudentData", dataProviderClass = StudentGroupTestData.class, expectedExceptions = IllegalArgumentException.class)
+	public void setStudentTestNull() {
+		Student student = StudentGroupTestData.getStudentData()[0];
+		studentGroup.setStudent(null, 1);
+	}
+	@Test(dataProvider = "getStudentData", dataProviderClass = StudentGroupTestData.class, expectedExceptions = IllegalArgumentException.class)	
+	public void addFirstTest() {
+		studentGroup.addFirst(null);	
+	}
+
+}
