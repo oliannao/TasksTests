@@ -1,3 +1,4 @@
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -36,20 +37,17 @@ public class StudentGroup implements StudentArrayOperation {
 		// Add your implementation here
 		if (students == null) {
 			throw new IllegalArgumentException();
-		} else
-			this.students = students;
+		}
+		this.students = students;
 	}
 
 	@Override
 	public Student getStudent(int index) {
 		// Add your implementation here
-		Student student = null;
 		if (index < 0 || index >= students.length) {
 			throw new IllegalArgumentException();
-		} else {
-			student = students[index];
 		}
-
+		Student student = students[index];
 		return student;
 	}
 
@@ -61,23 +59,21 @@ public class StudentGroup implements StudentArrayOperation {
 		}
 		if (index < 0 || index >= students.length) {
 			throw new IllegalArgumentException();
-		} else
-			for (int i = 0; i < students.length; i++) {
-				if (i == index) {
-					students[i] = student;
-				}
+		}
+		for (int i = 0; i < students.length; i++) {
+			if (i == index) {
+				students[i] = student;
 			}
-
+		}
 	}
 
 	@Override
 	public void addFirst(Student student) {
 		// Add your implementation here
-		Student[] studentss = null;
 		if (student == null) {
 			throw new IllegalArgumentException();
-		} else
-			studentss = new Student[students.length + 1];
+		}
+		Student[] studentss = new Student[students.length + 1];
 		for (int i = 0; i < studentss.length; i++) {
 			if (i == 0) {
 				studentss[i] = student;
@@ -85,17 +81,17 @@ public class StudentGroup implements StudentArrayOperation {
 				studentss[i] = students[i - 1];
 		}
 		setStudents(studentss);
-
 	}
 
 	@Override
 	public void addLast(Student student) {
-		// Add your implementation here
-		Student[] studentss = null;
+
 		if (student == null) {
 			throw new IllegalArgumentException();
-		} else
-			studentss = new Student[students.length + 1];
+		}
+
+		Student[] studentss = new Student[students.length + 1];
+
 		for (int i = 0; i < studentss.length; i++) {
 			if (i == (studentss.length - 1)) {
 				studentss[i] = student;
@@ -108,33 +104,33 @@ public class StudentGroup implements StudentArrayOperation {
 	@Override
 	public void add(Student student, int index) {
 		// Add your implementation here
-		Student[] studentss = null;
+
 		if (student == null) {
 			throw new IllegalArgumentException();
 		}
 		if (index < 0 || index >= students.length) {
 			throw new IllegalArgumentException();
 		}
-		studentss = new Student[students.length + 1];
+		Student[] studentss = new Student[students.length + 1];
 
 		for (int i = 0; i < studentss.length; i++) {
-			if (i == index) {
-				studentss[i] = student;
-			}
-			studentss[i] = students[i];
+			if (i < index) {
+				studentss[i] = students[i];
+			} else
+				studentss[i] = students[i - 1];
+			studentss[index] = student;
 		}
 		setStudents(studentss);
 	}
 
 	@Override
 	public void remove(int index) {
-		// Add your implementation here
-		Student[] studentss = null;
-		int y = 0;
+
 		if (index < 0 || index >= students.length) {
 			throw new IllegalArgumentException();
 		}
-		studentss = new Student[students.length - 1];
+		int y = 0;
+		Student[] studentss = new Student[students.length - 1];
 		for (int i = 0; i < students.length; i++) {
 			if (i == index) {
 				continue;
@@ -143,19 +139,17 @@ public class StudentGroup implements StudentArrayOperation {
 			y++;
 		}
 		setStudents(studentss);
-
 	}
 
 	@Override
 	public void remove(Student student) {
 		// Add your implementation here
-		Student[] studentss = null;
-		int y = 0;
-		int count = 0;
 		if (student == null) {
 			throw new IllegalArgumentException();
 		}
-		studentss = new Student[students.length - 1];
+		Student[] studentss = new Student[students.length - 1];
+		int y = 0;
+		int count = 0;
 		for (int i = 0; i < students.length; i++) {
 			if (students[i].equals(student)) {
 				count = 1;
@@ -163,7 +157,6 @@ public class StudentGroup implements StudentArrayOperation {
 			} else
 				studentss[y] = students[i];
 			y++;
-
 		}
 		if (count == 0) {
 			throw new IllegalArgumentException("Student not exist");
@@ -174,14 +167,12 @@ public class StudentGroup implements StudentArrayOperation {
 	@Override
 	public void removeFromIndex(int index) {
 		// Add your implementation here
-		Student[] studentss = null;
-		int y = 0;
-		int len = students.length - (students.length - index - 1);
 		if (index < 0 || index >= students.length) {
 			throw new IllegalArgumentException();
 		}
-		studentss = new Student[len];
-
+		int y = 0;
+		int len = students.length - (students.length - index - 1);
+		Student[] studentss = new Student[len];
 		for (int i = 0; i < len; i++) {
 			studentss[y] = students[i];
 			y = y + 1;
@@ -192,37 +183,34 @@ public class StudentGroup implements StudentArrayOperation {
 	@Override
 	public void removeFromElement(Student student) {
 		// Add your implementation here
-		Student[] studentss = null;
-		int y = 0;
-		int index = 0;
 		if (student == null) {
 			throw new IllegalArgumentException();
 		}
+		int y = 0;
+		int index = 0;
 		for (int i = 0; i < students.length; i++) {
 			if (students[i].equals(student)) {
 				index = i;
 			}
 		}
 		int len = students.length - (students.length - index - 1);
-		studentss = new Student[len];
+		Student[] studentss = new Student[len];
 		for (int i = 0; i < len; i++) {
 			studentss[y] = students[i];
 			y = y + 1;
 		}
-
 		setStudents(studentss);
 	}
 
 	@Override
 	public void removeToIndex(int index) {
-		// Add your implementation here
-		Student[] studentss = null;
-		int y = 0;
-		int len = students.length - index;
+
 		if (index < 0 || index >= students.length) {
 			throw new IllegalArgumentException();
 		}
-		studentss = new Student[len];
+		int y = 0;
+		int len = students.length - index;
+		Student[] studentss = new Student[len];
 
 		for (int i = index; i < students.length; i++) {
 			studentss[y] = students[i];
@@ -234,19 +222,19 @@ public class StudentGroup implements StudentArrayOperation {
 	@Override
 	public void removeToElement(Student student) {
 		// Add your implementation here
-		Student[] studentss = null;
-		int y = 0;
-		int index = 0;
+
 		if (student == null) {
 			throw new IllegalArgumentException();
 		}
+		int y = 0;
+		int index = 0;
 		for (int i = 0; i < students.length; i++) {
 			if (students[i].equals(student)) {
 				index = i;
 			}
 		}
 		int len = students.length - index;
-		studentss = new Student[len];
+		Student[] studentss = new Student[len];
 
 		for (int i = index; i < students.length; i++) {
 			studentss[y] = students[i];
@@ -260,15 +248,15 @@ public class StudentGroup implements StudentArrayOperation {
 		// Add your implementation here
 		for (int i = students.length - 1; i > 0; i--) {
 			for (int j = 0; j < i; j++) {
+				int comp = students[j].compareTo(students[j + 1]);
 
-				if (students[j].getId() > students[j + 1].getId()) {
+				if (i < 0) {
 					Student tmp = students[j];
 					students[j] = students[j + 1];
 					students[j + 1] = tmp;
 				}
 			}
 		}
-
 	}
 
 	@Override
@@ -309,7 +297,7 @@ public class StudentGroup implements StudentArrayOperation {
 			throw new IllegalArgumentException();
 		}
 		Student[] studentss = new Student[students.length];
-		long l = days * 24 * 60 * 60 * 60 * 1000;
+		long l = days * 24 * 60 * 60 * 1000;
 
 		long newl = date.getTime() + l;
 		Date newDate = new Date(newl);
@@ -331,22 +319,13 @@ public class StudentGroup implements StudentArrayOperation {
 		int years = 0;
 		for (int i = 0; i < students.length; i++) {
 			if (i == (indexOfStudent - 1)) {
-
-				GregorianCalendar birthDay = new GregorianCalendar(students[i].getBirthDate().getYear(),
-						students[i].getBirthDate().getMinutes(), students[i].getBirthDate().getDate());
-				GregorianCalendar checkDay = new GregorianCalendar(new Date().getYear(), new Date().getMonth(),
-						new Date().getDate());
-				years = checkDay.get(GregorianCalendar.YEAR) - birthDay.get(GregorianCalendar.YEAR);
-				int checkMonth = checkDay.get(GregorianCalendar.MONTH);
-				int birthMonth = birthDay.get(GregorianCalendar.MONTH);
-				if (checkMonth < birthMonth) {
-					years--;
-				} else if (checkMonth == birthMonth && checkDay.get(GregorianCalendar.DAY_OF_MONTH) < birthDay
-						.get(GregorianCalendar.DAY_OF_MONTH)) {
-
+				Calendar birth = Calendar.getInstance();
+				birth.setTime(students[i].getBirthDate());
+				Calendar today = Calendar.getInstance();
+				years = today.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+				if (today.get(Calendar.DAY_OF_YEAR) <= birth.get(Calendar.DAY_OF_YEAR)) {
 					years--;
 				}
-
 			}
 		}
 		return years;
