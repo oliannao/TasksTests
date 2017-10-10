@@ -307,7 +307,6 @@ public class StudentGroup implements StudentArrayOperation {
 			studentss[i] = students[i];
 		}
 		return studentss;
-
 	}
 
 	@Override
@@ -317,16 +316,12 @@ public class StudentGroup implements StudentArrayOperation {
 			throw new IllegalArgumentException();
 		}
 		int years = 0;
-		for (int i = 0; i < students.length; i++) {
-			if (i == (indexOfStudent - 1)) {
-				Calendar birth = Calendar.getInstance();
-				birth.setTime(students[i].getBirthDate());
-				Calendar today = Calendar.getInstance();
-				years = today.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
-				if (today.get(Calendar.DAY_OF_YEAR) <= birth.get(Calendar.DAY_OF_YEAR)) {
-					years--;
-				}
-			}
+		Calendar birth = Calendar.getInstance();
+		birth.setTime(students[indexOfStudent - 1].getBirthDate());
+		Calendar today = Calendar.getInstance();
+		years = today.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+		if (today.get(Calendar.DAY_OF_YEAR) <= birth.get(Calendar.DAY_OF_YEAR)) {
+			years--;
 		}
 		return years;
 	}
@@ -337,27 +332,17 @@ public class StudentGroup implements StudentArrayOperation {
 		int years = 0;
 		Student[] studentss = new Student[students.length];
 		for (int i = 0; i < students.length; i++) {
-			GregorianCalendar birthDay = new GregorianCalendar(students[i].getBirthDate().getYear(),
-					students[i].getBirthDate().getMinutes(), students[i].getBirthDate().getDate());
-			GregorianCalendar checkDay = new GregorianCalendar(new Date().getYear(), new Date().getMonth(),
-					new Date().getDate());
-			years = checkDay.get(GregorianCalendar.YEAR) - birthDay.get(GregorianCalendar.YEAR);
-			int checkMonth = checkDay.get(GregorianCalendar.MONTH);
-			int birthMonth = birthDay.get(GregorianCalendar.MONTH);
-			if (checkMonth < birthMonth) {
-				years--;
-			} else if (checkMonth == birthMonth
-					&& checkDay.get(GregorianCalendar.DAY_OF_MONTH) < birthDay.get(GregorianCalendar.DAY_OF_MONTH)) {
-
+			Calendar birth = Calendar.getInstance();
+			birth.setTime(students[i].getBirthDate());
+			Calendar today = Calendar.getInstance();
+			years = today.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+			if (today.get(Calendar.DAY_OF_YEAR) <= birth.get(Calendar.DAY_OF_YEAR)) {
 				years--;
 			}
-
 			if (age == years) {
 				studentss[i] = students[i];
 			}
-
 		}
-
 		return studentss;
 	}
 
@@ -371,12 +356,11 @@ public class StudentGroup implements StudentArrayOperation {
 				mark = students[i].getAvgMark();
 			}
 		}
-		for (int i = 1; i < students.length; i++) {
+		for (int i = 0; i < students.length; i++) {
 			if (students[i].getAvgMark() == mark) {
 				studentss[i] = students[i];
 			}
 		}
-
 		return studentss;
 	}
 
@@ -391,10 +375,9 @@ public class StudentGroup implements StudentArrayOperation {
 			if (students[i].equals(student) && i != (students.length - 1)) {
 				st = students[i + 1];
 				break;
-			} else
+			} else if ((students[i].equals(student) && i == (students.length - 1)))
 				st = student;
 		}
-
 		return st;
 	}
 }
