@@ -250,7 +250,7 @@ public class StudentGroup implements StudentArrayOperation {
 			for (int j = 0; j < i; j++) {
 				int comp = students[j].compareTo(students[j + 1]);
 
-				if (i < 0) {
+				if (comp < 0) {
 					Student tmp = students[j];
 					students[j] = students[j + 1];
 					students[j + 1] = tmp;
